@@ -1,32 +1,31 @@
 package com.example.yandexautointershipproblem
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.yandexautointershipproblem.databinding.SearchRepositoryFragmentBinding
 
 
 class SearchRepository : Fragment() {
 
-    companion object {
-        fun newInstance() = SearchRepository()
-    }
-
-    private lateinit var viewModel: SearchRepositoryViewModel
+    private val model: SearchRepositoryViewModel by viewModels()
+    private lateinit var binding: SearchRepositoryFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.search_repository_fragment, container, false)
+        binding = SearchRepositoryFragmentBinding.inflate(inflater, container, false)
+        model.ans.observe(viewLifecycleOwner, Observer<String> { newAns ->
+            binding.debugText.text = newAns
+        })
+        binding.searchButton.setOnClickListener {
+            model.searchReps(binding.queryInputText.text.toString())
+        }
+        return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SearchRepositoryViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
