@@ -23,8 +23,11 @@ class SearchRepository : Fragment() {
         model.ans.observe(viewLifecycleOwner, Observer<String> { newAns ->
             binding.debugText.text = newAns
         })
+        model.progressVisibility.observe(viewLifecycleOwner, Observer<Boolean> { newState ->
+            binding.searhingProgress.visibility = if (newState) View.VISIBLE else View.VISIBLE
+        })
         binding.searchButton.setOnClickListener {
-            model.searchReps(binding.queryInputText.text.toString())
+            model.searchRepos(binding.queryInputText.text.toString())
         }
         return binding.root
     }

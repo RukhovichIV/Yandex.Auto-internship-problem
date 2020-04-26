@@ -12,8 +12,10 @@ import retrofit2.http.Query
 
 class SearchRepositoryViewModel : ViewModel() {
     val ans: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val progressVisibility = MutableLiveData(false)
 
-    fun searchReps(query: String) {
+    fun searchRepos(query: String) {
+        progressVisibility.value = true
         SearchRepositoriesAPI.retrofitService.searchRepositories(query)
             .enqueue(object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
@@ -24,6 +26,7 @@ class SearchRepositoryViewModel : ViewModel() {
                     ans.value = response.body()
                 }
             })
+        progressVisibility.value = false
     }
 }
 
