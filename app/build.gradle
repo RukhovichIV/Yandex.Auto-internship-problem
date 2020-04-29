@@ -27,6 +27,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java', 'src/main/java/Storing'
+            }
+        }
+    }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
@@ -79,4 +86,7 @@ dependencies {
     // Retrofit coroutine adapter
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:" +
             "$version_retrofit_coroutines_adapter"
+
+    implementation "androidx.room:room-runtime:2.2.5"
+    // kapt "androidx.room:room-compiler:2.2.5"
 }

@@ -1,13 +1,16 @@
 package com.example.yandexautointershipproblem
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.yandexautointershipproblem.databinding.SearchRepositoryFragmentBinding
+import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
 
 
 class SearchRepository : Fragment() {
@@ -20,15 +23,28 @@ class SearchRepository : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SearchRepositoryFragmentBinding.inflate(inflater, container, false)
-        model.ans.observe(viewLifecycleOwner, Observer<String> { newAns ->
-            binding.debugText.text = newAns
+        val adapter = SearchRepositoryAdapter()
+        binding.searchResultsView.adapter = adapter
+        model.repositoriesList.observe(viewLifecycleOwner, Observer<List<RepositoryRepresentation>>{
+            adapter.setData(it)
+            adapter.notifyDataSetChanged()
         })
-        model.progressVisibility.observe(viewLifecycleOwner, Observer<Boolean> { newState ->
-            binding.searhingProgress.visibility = if (newState) View.VISIBLE else View.INVISIBLE
+        model.supportText.observe(viewLifecycleOwner, Observer<String> {
+            binding.debugText.text = it
+        })
+        model.progressVisibility.observe(viewLifecycleOwner, Observer<Boolean> {
+            binding.searhingProgress.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
         binding.searchButton.setOnClickListener {
-            model.searchRepos(binding.queryInputText.text.toString())
+            hideKeyboard()
+            model.searchAndShowReposAsync(binding.queryInputText.text.toString())
         }
         return binding.root
+    }
+
+    private fun hideKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+
     }
 }
