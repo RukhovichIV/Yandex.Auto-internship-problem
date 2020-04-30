@@ -2,12 +2,13 @@ package com.example.yandexautointershipproblem
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.yandexautointershipproblem.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.search_repository_fragment.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +19,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        val navController = findNavController(R.id.nav_host_fragment)
-////        val view: BottomNavigationView = binding.bottomNav
-//        NavigationUI.setupWithNavController(view, navController)
-//        NavigationUI.setupActionBarWithNavController(this, navController);
     }
 }

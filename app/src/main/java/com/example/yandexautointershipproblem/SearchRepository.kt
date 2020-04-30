@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
@@ -29,6 +32,12 @@ class SearchRepository : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SearchRepositoryFragmentBinding.inflate(inflater, container, false)
+
+        binding.searchButton.setOnClickListener {
+            hideKeyboard()
+            model.searchRepositories(binding.queryInputText.text.toString())
+        }
+
         val adapter = RepositoryViewAdapter(::onViewItemClick)
         binding.searchResultsView.adapter = adapter
         val dividerItemDecoration =
@@ -39,6 +48,7 @@ class SearchRepository : Fragment() {
             adapter.data = it
             adapter.notifyDataSetChanged()
         })
+
         model.supportText.observe(viewLifecycleOwner, Observer<String> {
             binding.supportText.text = it
         })
@@ -46,12 +56,9 @@ class SearchRepository : Fragment() {
             binding.searhingProgress.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
         model.dataSource = RepoDatabase.getInstance(requireNotNull(this.activity).application).dao
-        binding.searchButton.setOnClickListener {
-            hideKeyboard()
-            model.searchRepositories(binding.queryInputText.text.toString())
-        }
 
         setHasOptionsMenu(true)
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.bottomAppBar)
         return binding.root
     }
 
@@ -69,13 +76,11 @@ class SearchRepository : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_nav, menu)
+        inflater.inflate(R.menu.menu_search, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(
-            item,
-            requireView().findNavController()
-        ) || super.onOptionsItemSelected(item)
+        findNavController().navigate(R.id.action_searchRepository_to_visitHistory)
+        return super.onOptionsItemSelected(item)
     }
 }

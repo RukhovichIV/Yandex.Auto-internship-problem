@@ -63,7 +63,6 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle_extensions"
-    // kapt "androidx.lifecycle:lifecycle-compiler:$version_lifecycle_extensions"
 
     // Navigation
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"

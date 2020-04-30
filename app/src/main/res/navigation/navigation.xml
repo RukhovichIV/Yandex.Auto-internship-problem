@@ -9,10 +9,19 @@
         android:id="@+id/searchRepository"
         android:name="com.example.yandexautointershipproblem.SearchRepository"
         android:label="search_repository_fragment"
-        tools:layout="@layout/search_repository_fragment" />
+        tools:layout="@layout/search_repository_fragment" >
+        <action
+            android:id="@+id/action_searchRepository_to_visitHistory"
+            app:destination="@id/visitHistory" />
+    </fragment>
     <fragment
         android:id="@+id/visitHistory"
         android:name="com.example.yandexautointershipproblem.VisitHistory"
         android:label="VisitHistory"
-        tools:layout="@layout/visit_history_fragment" />
+        tools:layout="@layout/visit_history_fragment" >
+        <action
+            android:id="@+id/action_visitHistory_to_searchRepository"
+            app:popUpTo="@id/visitHistory"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

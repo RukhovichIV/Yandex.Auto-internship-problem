@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +20,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +55,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:fontFamily="@font/roboto_medium"
             android:textAlignment="center"
@@ -75,7 +73,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -93,11 +91,12 @@
         android:layout_gravity="bottom"
         app:backgroundTint="@color/primaryColor"
         app:fabAlignmentMode="end"
-        app:fabAnimationMode="slide"
+        app:fabAnimationMode="scale"
         app:fabCradleMargin="6dp"
         app:fabCradleRoundedCornerRadius="20dp"
         app:fabCradleVerticalOffset="0dp"
-        app:navigationIcon="@drawable/baseline_history_24" />
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
