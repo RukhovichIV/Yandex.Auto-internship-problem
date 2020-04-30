@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -62,6 +63,7 @@ dependencies {
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle_extensions"
+    // kapt "androidx.lifecycle:lifecycle-compiler:$version_lifecycle_extensions"
 
     // Navigation
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
@@ -87,5 +89,6 @@ dependencies {
             "$version_retrofit_coroutines_adapter"
 
     implementation "androidx.room:room-runtime:2.2.5"
-    // kapt "androidx.room:room-compiler:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+
 }

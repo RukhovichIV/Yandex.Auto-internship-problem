@@ -4,34 +4,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.yandexautointershipproblem.storing.RepoDatabaseDao
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import kotlinx.coroutines.*
 
 class VisitHistoryViewModel : ViewModel() {
-    lateinit var historyDataSource: RepoDatabaseDao
+    lateinit var dataSource: RepoDatabaseDao
+    private var coroutineScope = CoroutineScope(Dispatchers.IO + Job())
+
     val repositoriesList: MutableLiveData<LinkedHashSet<RepositoryRepresentation>>
             by lazy { MutableLiveData<LinkedHashSet<RepositoryRepresentation>>() }
     val supportText: MutableLiveData<String> by lazy { MutableLiveData<String>() }
-    private var maxId = -1
 
     fun recalculateViews() {
-        repositoriesList.value!!.clear()
-        repositoriesList.value!!.addAll(historyDataSource.getAllRecords())
-        maxId = repositoriesList.value!!.maxBy { it.id }?.id ?: -1
+        runBlocking {
+            val result = coroutineScope.async {
+                dataSource.getAllRecords()
+            }
+            repositoriesList.value = LinkedHashSet(result.await())
+        }
     }
 
-    fun addNewItem(repository: RepositoryRepresentation) {
-        if (historyDataSource.checkForRecord(repository.author, repository.title).size == 1) {
-            historyDataSource.deleteRecord(repository)
+    fun removeItemFromDatabase(repository: RepositoryRepresentation) {
+        coroutineScope.launch {
+            dataSource.deleteRecord(repository)
         }
-        val wasInList = repositoriesList.value!!.remove(repository)
-        repository.id = ++maxId
-        if (wasInList) repositoriesList.value!!.add(repository)
-        historyDataSource.insertRecord(repository)
-    }
-
-    fun removeItem(repository: RepositoryRepresentation) {
-        if (historyDataSource.checkForRecord(repository.author, repository.title).size == 1) {
-            historyDataSource.deleteRecord(repository)
-        }
-        repositoriesList.value!!.remove(repository)
     }
 }

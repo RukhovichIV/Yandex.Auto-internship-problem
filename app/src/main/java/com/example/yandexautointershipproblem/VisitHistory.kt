@@ -25,8 +25,6 @@ class VisitHistory : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = VisitHistoryFragmentBinding.inflate(inflater, container, false)
-        val dataSource = RepoDatabase.getInstance(requireNotNull(this.activity).application).dao
-        model.historyDataSource = dataSource
         val adapter = RepositoryViewAdapter(::onViewItemClick)
         binding.visitHistoryView.adapter = adapter
         model.repositoriesList.observe(viewLifecycleOwner, Observer {
@@ -36,6 +34,7 @@ class VisitHistory : Fragment() {
         model.supportText.observe(viewLifecycleOwner, Observer<String> {
             binding.supportText.text = it
         })
+        model.dataSource = RepoDatabase.getInstance(requireNotNull(this.activity).application).dao
         model.recalculateViews()
         return binding.root
     }

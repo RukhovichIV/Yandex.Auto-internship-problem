@@ -11,8 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
 import com.example.yandexautointershipproblem.databinding.SearchRepositoryFragmentBinding
+import com.example.yandexautointershipproblem.storing.RepoDatabase
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
 
 
@@ -28,6 +31,10 @@ class SearchRepository : Fragment() {
         binding = SearchRepositoryFragmentBinding.inflate(inflater, container, false)
         val adapter = RepositoryViewAdapter(::onViewItemClick)
         binding.searchResultsView.adapter = adapter
+        val dividerItemDecoration =
+            DividerItemDecoration(binding.searchResultsView.context, LinearLayoutManager.VERTICAL)
+        dividerItemDecoration.setDrawable(context?.getDrawable(R.drawable.recycler_view_divider)!!)
+        binding.searchResultsView.addItemDecoration(dividerItemDecoration)
         model.repositoriesList.observe(viewLifecycleOwner, Observer {
             adapter.data = it
             adapter.notifyDataSetChanged()
@@ -38,6 +45,7 @@ class SearchRepository : Fragment() {
         model.progressVisibility.observe(viewLifecycleOwner, Observer<Boolean> {
             binding.searhingProgress.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
+        model.dataSource = RepoDatabase.getInstance(requireNotNull(this.activity).application).dao
         binding.searchButton.setOnClickListener {
             hideKeyboard()
             model.searchRepositories(binding.queryInputText.text.toString())
@@ -54,6 +62,7 @@ class SearchRepository : Fragment() {
     }
 
     private fun onViewItemClick(repository: RepositoryRepresentation) {
+        model.addNewItemToDatabase(repository)
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(repository.url))
         startActivity(intent)
     }
@@ -64,6 +73,9 @@ class SearchRepository : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController()) ||  super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            requireView().findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 }

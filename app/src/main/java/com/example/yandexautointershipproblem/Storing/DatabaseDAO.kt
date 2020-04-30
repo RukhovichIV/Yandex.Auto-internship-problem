@@ -5,8 +5,11 @@ import androidx.room.*
 @Dao
 interface RepoDatabaseDao {
 
-    @Query("select * from repository_representation_table where owner = :author and rep_title = :title")
-    fun checkForRecord(author: String, title: String): List<RepositoryRepresentation>
+    @Query("select count(1) from repository_representation_table where owner = :author and rep_title = :title")
+    fun checkForRecord(author: String, title: String): Boolean
+
+    @Query("select max(id) from repository_representation_table")
+    fun findMaxId(): Int
 
     @Insert
     fun insertRecord(item: RepositoryRepresentation)

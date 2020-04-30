@@ -3,13 +3,20 @@ package com.example.yandexautointershipproblem
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.yandexautointershipproblem.internet.searchRepositoriesAsync
+import com.example.yandexautointershipproblem.storing.RepoDatabaseDao
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
 import java.net.HttpURLConnection
 
-
 class SearchRepositoryViewModel : ViewModel() {
+    lateinit var dataSource: RepoDatabaseDao
+    private var coroutineScope = CoroutineScope(Dispatchers.IO + Job())
+
     val repositoriesList: MutableLiveData<List<RepositoryRepresentation>>
             by lazy { MutableLiveData<List<RepositoryRepresentation>>() }
     val supportText: MutableLiveData<String> by lazy { MutableLiveData<String>() }
@@ -20,6 +27,14 @@ class SearchRepositoryViewModel : ViewModel() {
         supportText.value = ""
         repositoriesList.value = listOf()
         searchRepositoriesAsync(query, ::failureCallback, ::successCallback)
+    }
+
+    fun addNewItemToDatabase(repository: RepositoryRepresentation) {
+        coroutineScope.launch {
+            dataSource.deleteRecord(repository)
+            repository.id = dataSource.findMaxId() + 1
+            dataSource.insertRecord(repository)
+        }
     }
 
     private fun failureCallback(t: Throwable) {
@@ -76,9 +91,8 @@ fun String.checkLang(): String {
 }
 
 fun String.normalizeDate(): String {
-    val ans = (if (this[8] != '0') this[8].toString() else "") +
+    return (if (this[8] != '0') this[8].toString() else "") +
             this[9] + "/" +
             (if (this[5] != '0') this[5].toString() else "") +
             this[6] + "/" + this[0] + this[1] + this[2] + this[3]
-    return ans
 }
