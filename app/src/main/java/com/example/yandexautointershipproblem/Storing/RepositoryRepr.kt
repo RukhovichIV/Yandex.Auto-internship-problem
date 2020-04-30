@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "repr_table")
+@Entity(tableName = "repository_representation_table")
 data class RepositoryRepresentation(
 
     @ColumnInfo(name = "rep_title")
@@ -22,6 +22,12 @@ data class RepositoryRepresentation(
     @ColumnInfo(name = "language")
     val language: String,
 
+    @ColumnInfo(name = "url")
+    val url: String,
+
     @PrimaryKey
-    val id: Int
+    var id: Int,
+
+    @ColumnInfo(name = "starred")
+    val starred: Boolean
 )

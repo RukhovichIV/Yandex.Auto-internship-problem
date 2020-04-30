@@ -10,4 +10,9 @@
         android:name="com.example.yandexautointershipproblem.SearchRepository"
         android:label="search_repository_fragment"
         tools:layout="@layout/search_repository_fragment" />
+    <fragment
+        android:id="@+id/visitHistory"
+        android:name="com.example.yandexautointershipproblem.VisitHistory"
+        android:label="VisitHistory"
+        tools:layout="@layout/visit_history_fragment" />
 </navigation>

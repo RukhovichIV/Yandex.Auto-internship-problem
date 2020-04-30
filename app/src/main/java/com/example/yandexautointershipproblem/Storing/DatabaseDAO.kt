@@ -1,25 +1,25 @@
 package com.example.yandexautointershipproblem.storing
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface RepoDatabaseDao {
+
+    @Query("select * from repository_representation_table where owner = :author and rep_title = :title")
+    fun checkForRecord(author: String, title: String): List<RepositoryRepresentation>
+
     @Insert
-    fun insert(item: RepositoryRepresentation)
+    fun insertRecord(item: RepositoryRepresentation)
 
-    @Update
-    fun update(item: RepositoryRepresentation)
+    @Delete
+    fun deleteRecord(item: RepositoryRepresentation)
 
-    @Query("SELECT * from search_repo_database WHERE id = :key")
-    fun get(key: Int): RepositoryRepresentation
+    @Query("select * from repository_representation_table order by id desc")
+    fun getAllRecords(): List<RepositoryRepresentation>
 
-    @Query("SELECT * FROM search_repo_database ORDER BY repository_update_date DESC")
-    fun getAll(): LiveData<List<RepositoryRepresentation>>
+    @Query("select * from repository_representation_table where starred = 1 order by id desc")
+    fun getStarredRecords(): List<RepositoryRepresentation>
 
-    @Query("SELECT * FROM search_repo_database WHERE repository_favor = 1 ORDER BY repository_update_date DESC")
-    fun getFavourite(): LiveData<List<RepositoryRepresentation>>
-
-    @Query("DELETE FROM search_repo_database")
-    fun deleteAll()
+    @Query("delete from repository_representation_table")
+    fun deleteAllRecords()
 }
