@@ -29,5 +29,5 @@ data class RepositoryRepresentation(
     var id: Int,
 
     @ColumnInfo(name = "starred")
-    val starred: Boolean
+    var starred: Boolean
 )

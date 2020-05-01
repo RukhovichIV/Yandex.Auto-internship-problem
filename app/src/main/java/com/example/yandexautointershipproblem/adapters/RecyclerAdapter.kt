@@ -1,22 +1,27 @@
 package com.example.yandexautointershipproblem.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yandexautointershipproblem.R
 import com.example.yandexautointershipproblem.databinding.RepositoryListItemBinding
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
 
 class RepositoryViewAdapter(private val clickListener: (RepositoryRepresentation) -> Unit) :
     RecyclerView.Adapter<RepositoryViewAdapter.ViewHolder>() {
-    var data = listOf<RepositoryRepresentation>()
+    var data = mutableListOf<RepositoryRepresentation>()
 
     override fun getItemCount(): Int {
         return data.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], clickListener, position+1 == data.size)
+        holder.bind(data[position], clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,28 +30,29 @@ class RepositoryViewAdapter(private val clickListener: (RepositoryRepresentation
         return ViewHolder(binding)
     }
 
+    fun removeAt(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     class ViewHolder(private val binding: RepositoryListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             repository: RepositoryRepresentation,
-            clickListener: (RepositoryRepresentation) -> Unit,
-            isLast: Boolean
+            clickListener: (RepositoryRepresentation) -> Unit
         ) {
-            if (isLast){
-                val params = binding.repoItemLayout.layoutParams as RecyclerView.LayoutParams
-                params.bottomMargin = 150
-                binding.repoItemLayout.layoutParams = params
-            }else {
-                val params = binding.repoItemLayout.layoutParams as RecyclerView.LayoutParams
-                params.bottomMargin = 0
-                binding.repoItemLayout.layoutParams = params
-
-                binding.titleText.text = repository.title
-                binding.descriptionText.text = repository.description
-                binding.authorText.text = repository.author
-                binding.languageText.text = repository.language
-                binding.dateText.text = repository.dateOfCreation
-                binding.repoItemLayout.setOnClickListener { clickListener(repository) }
+            with(binding) {
+                titleText.text = repository.title
+                descriptionText.text = repository.description
+                authorText.text = repository.author
+                languageText.text = repository.language
+                dateText.text = repository.dateOfCreation
+                repoItemLayout.setOnClickListener { clickListener(repository) }
+                repoItemLayout.background =
+                    if (repository.starred) ContextCompat.getDrawable(
+                        repoItemLayout.context,
+                        R.color.secondaryLightColor
+                    ) else ColorDrawable(Color.TRANSPARENT)
             }
         }
     }

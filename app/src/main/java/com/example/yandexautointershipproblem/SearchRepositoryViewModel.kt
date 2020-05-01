@@ -2,6 +2,9 @@ package com.example.yandexautointershipproblem
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
 import com.example.yandexautointershipproblem.internet.searchRepositoriesAsync
 import com.example.yandexautointershipproblem.storing.RepoDatabaseDao
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
@@ -13,25 +16,30 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.net.HttpURLConnection
 
+
 class SearchRepositoryViewModel : ViewModel() {
     lateinit var dataSource: RepoDatabaseDao
     private var coroutineScope = CoroutineScope(Dispatchers.IO + Job())
 
-    val repositoriesList: MutableLiveData<List<RepositoryRepresentation>>
-            by lazy { MutableLiveData<List<RepositoryRepresentation>>() }
+    val repositoriesList: MutableLiveData<MutableList<RepositoryRepresentation>>
+            by lazy { MutableLiveData<MutableList<RepositoryRepresentation>>() }
     val supportText: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val progressVisibility = MutableLiveData(false)
 
     fun searchRepositories(query: String) {
         progressVisibility.value = true
         supportText.value = ""
-        repositoriesList.value = listOf()
+        repositoriesList.value = mutableListOf()
         searchRepositoriesAsync(query, ::failureCallback, ::successCallback)
     }
 
     fun addNewItemToDatabase(repository: RepositoryRepresentation) {
         coroutineScope.launch {
-            dataSource.deleteRecord(repository)
+            val repo = dataSource.checkForRecord(repository.author, repository.title)
+            if(repo != null){
+                dataSource.deleteRecord(repo)
+                repository.starred = repo.starred
+            }
             repository.id = dataSource.findMaxId() + 1
             dataSource.insertRecord(repository)
         }
@@ -59,7 +67,7 @@ class SearchRepositoryViewModel : ViewModel() {
                     supportText.value = "Nothing was found. Try another request"
                 } else {
                     repositoriesList.value =
-                        List(StrictMath.min(50, arrayOfRepositories.length())) { index: Int ->
+                        MutableList(StrictMath.min(100, arrayOfRepositories.length())) { index: Int ->
                             val curElem = arrayOfRepositories.getJSONObject(index)
                             RepositoryRepresentation(
                                 curElem.getString("name"),
@@ -68,7 +76,7 @@ class SearchRepositoryViewModel : ViewModel() {
                                 curElem.getString("created_at").normalizeDate(),
                                 curElem.getString("language").checkLang(),
                                 curElem.getString("html_url"),
-                                curElem.getInt("id"),
+                                -1,
                                 false
                             )
                         }

@@ -8,24 +8,59 @@ import kotlinx.coroutines.*
 
 class VisitHistoryViewModel : ViewModel() {
     lateinit var dataSource: RepoDatabaseDao
+    var showStarredOnly = false
     private var coroutineScope = CoroutineScope(Dispatchers.IO + Job())
 
-    val repositoriesList: MutableLiveData<LinkedHashSet<RepositoryRepresentation>>
-            by lazy { MutableLiveData<LinkedHashSet<RepositoryRepresentation>>() }
+    val repositoriesList: MutableLiveData<MutableList<RepositoryRepresentation>>
+            by lazy { MutableLiveData<MutableList<RepositoryRepresentation>>() }
     val supportText: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     fun recalculateViews() {
         runBlocking {
             val result = coroutineScope.async {
-                dataSource.getAllRecords()
+                if (showStarredOnly) dataSource.getStarredRecords() else
+                    dataSource.getAllRecords()
             }
-            repositoriesList.value = LinkedHashSet(result.await())
+            repositoriesList.value = result.await()
         }
     }
 
-    fun removeItemFromDatabase(repository: RepositoryRepresentation) {
+    fun updateItemInDatabase(repository: RepositoryRepresentation) {
+        runBlocking {
+            val result = coroutineScope.async {
+                val repo = dataSource.checkForRecord(repository.author, repository.title)
+                if(repo != null){
+                    dataSource.deleteRecord(repo)
+                }
+                repository.id = dataSource.findMaxId() + 1
+                dataSource.insertRecord(repository)
+                if (showStarredOnly) dataSource.getStarredRecords() else
+                    dataSource.getAllRecords()
+            }
+            repositoriesList.value = result.await()
+        }
+    }
+
+    fun removeItemFromDatabase(pos: Int) {
+        val repositoryToDelete = repositoriesList.value!![pos]
         coroutineScope.launch {
-            dataSource.deleteRecord(repository)
+            dataSource.deleteRecord(repositoryToDelete)
+        }
+    }
+
+    fun changeStarred(pos: Int) {
+        runBlocking {
+            with(repositoriesList.value!![pos]) {
+                var ok = coroutineScope.launch {
+                    dataSource.deleteRecord(this@with)
+                }
+                ok.join()
+                starred = !starred
+                ok = coroutineScope.launch {
+                    dataSource.insertRecord(this@with)
+                }
+                ok.join()
+            }
         }
     }
 }

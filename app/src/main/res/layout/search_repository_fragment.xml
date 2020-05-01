@@ -13,7 +13,7 @@
         tools:context=".SearchRepository">
 
         <ProgressBar
-            android:id="@+id/searhing_progress"
+            android:id="@+id/searching_progress"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/query_input_hint"
+            app:hintTextColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,6 +44,7 @@
                 android:id="@+id/query_input_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
                 android:fontFamily="@font/roboto_medium"
                 android:singleLine="true" />
 
@@ -93,7 +95,7 @@
         app:fabAlignmentMode="end"
         app:fabAnimationMode="scale"
         app:fabCradleMargin="6dp"
-        app:fabCradleRoundedCornerRadius="20dp"
+        app:fabCradleRoundedCornerRadius="15dp"
         app:fabCradleVerticalOffset="0dp"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways" />
@@ -103,7 +105,7 @@
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_search_24"
+        android:src="@drawable/baseline_search_48"
         app:layout_anchor="@id/bottom_app_bar" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
