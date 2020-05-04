@@ -5,7 +5,7 @@ This is android studio project, based on the task: https://github.com/justmnemon
 
 To find a repository enter its **title** / **owner's name** into the field and click the `search` button.
 
-Once you clicked on the found button, it will open your browser with the clicked repository in it.
+Once you've clicked on the found repo, it will open your browser with the clicked repository in it.
 
 Visited repositories are shown on the other screen, which you can navigate by clicking the `history` button.
 
