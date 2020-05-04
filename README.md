@@ -9,8 +9,8 @@ Once you've clicked on the found repo, it will open your browser with the clicke
 
 Visited repositories are shown on the other screen, which you can navigate by clicking the `history` button.
 
-Swipe left on the history screen will delete the repository from the storage.
+`Swipe left` on the history screen will delete the repository from the storage.
 
-Swipe right on the history will make the repository favourite (the second swipe will cancel it).
+`Swipe right` on the history will make the repository favourite (**the second swipe will cancel it**).
 
 The `star` button on the history screen toggles the view mode (all repos / favourite only)
