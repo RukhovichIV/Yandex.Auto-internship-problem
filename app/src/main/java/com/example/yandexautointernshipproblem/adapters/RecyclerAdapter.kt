@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem.adapters
+package com.example.yandexautointernshipproblem.adapters
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yandexautointershipproblem.R
-import com.example.yandexautointershipproblem.databinding.RepositoryListItemBinding
-import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import com.example.yandexautointernshipproblem.R
+import com.example.yandexautointernshipproblem.databinding.RepositoryListItemBinding
+import com.example.yandexautointernshipproblem.storing.RepositoryRepresentation
 
 class RepositoryViewAdapter(private val clickListener: (RepositoryRepresentation) -> Unit) :
     RecyclerView.Adapter<RepositoryViewAdapter.ViewHolder>() {

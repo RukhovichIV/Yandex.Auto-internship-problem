@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem
+package com.example.yandexautointernshipproblem
 
 import android.content.Context
 import android.content.Intent
@@ -13,10 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
-import com.example.yandexautointershipproblem.databinding.SearchRepositoryFragmentBinding
-import com.example.yandexautointershipproblem.storing.RepoDatabase
-import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import com.example.yandexautointernshipproblem.adapters.RepositoryViewAdapter
+import com.example.yandexautointernshipproblem.databinding.SearchRepositoryFragmentBinding
+import com.example.yandexautointernshipproblem.storing.RepoDatabase
+import com.example.yandexautointernshipproblem.storing.RepositoryRepresentation
 
 class SearchRepository : Fragment() {
 

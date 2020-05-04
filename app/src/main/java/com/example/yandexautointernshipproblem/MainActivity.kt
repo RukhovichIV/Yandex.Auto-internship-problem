@@ -1,8 +1,8 @@
-package com.example.yandexautointershipproblem
+package com.example.yandexautointernshipproblem
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yandexautointershipproblem.databinding.ActivityMainBinding
+import com.example.yandexautointernshipproblem.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {

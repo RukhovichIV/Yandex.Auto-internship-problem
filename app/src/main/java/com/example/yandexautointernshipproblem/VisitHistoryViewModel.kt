@@ -1,9 +1,9 @@
-package com.example.yandexautointershipproblem
+package com.example.yandexautointernshipproblem
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.yandexautointershipproblem.storing.RepoDatabaseDao
-import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import com.example.yandexautointernshipproblem.storing.RepoDatabaseDao
+import com.example.yandexautointernshipproblem.storing.RepositoryRepresentation
 import kotlinx.coroutines.*
 
 class VisitHistoryViewModel : ViewModel() {

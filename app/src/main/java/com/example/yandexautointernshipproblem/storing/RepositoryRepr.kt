@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem.storing
+package com.example.yandexautointernshipproblem.storing
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

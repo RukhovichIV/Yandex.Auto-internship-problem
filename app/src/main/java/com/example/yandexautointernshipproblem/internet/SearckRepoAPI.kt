@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem.internet
+package com.example.yandexautointernshipproblem.internet
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Call

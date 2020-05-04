@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem.storing
+package com.example.yandexautointernshipproblem.storing
 
 import android.content.Context
 import androidx.room.Database

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchRepository"
-        android:name="com.example.yandexautointershipproblem.SearchRepository"
+        android:name="com.example.yandexautointernshipproblem.SearchRepository"
         android:label="search_repository_fragment"
         tools:layout="@layout/search_repository_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/visitHistory"
-        android:name="com.example.yandexautointershipproblem.VisitHistory"
+        android:name="com.example.yandexautointernshipproblem.VisitHistory"
         android:label="VisitHistory"
         tools:layout="@layout/visit_history_fragment">
         <action

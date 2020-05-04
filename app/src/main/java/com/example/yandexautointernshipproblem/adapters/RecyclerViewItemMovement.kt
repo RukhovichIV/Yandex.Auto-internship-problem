@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem.adapters
+package com.example.yandexautointernshipproblem.adapters
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,7 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yandexautointershipproblem.R
+import com.example.yandexautointernshipproblem.R
 
 
 abstract class SwipeToDeleteCallback(context: Context) :

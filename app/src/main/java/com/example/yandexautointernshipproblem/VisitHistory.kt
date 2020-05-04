@@ -1,4 +1,4 @@
-package com.example.yandexautointershipproblem
+package com.example.yandexautointernshipproblem
 
 import android.content.Intent
 import android.net.Uri
@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
-import com.example.yandexautointershipproblem.adapters.SwipeToDeleteCallback
-import com.example.yandexautointershipproblem.adapters.SwipeToStarCallback
-import com.example.yandexautointershipproblem.databinding.VisitHistoryFragmentBinding
-import com.example.yandexautointershipproblem.storing.RepoDatabase
-import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
+import com.example.yandexautointernshipproblem.adapters.RepositoryViewAdapter
+import com.example.yandexautointernshipproblem.adapters.SwipeToDeleteCallback
+import com.example.yandexautointernshipproblem.adapters.SwipeToStarCallback
+import com.example.yandexautointernshipproblem.databinding.VisitHistoryFragmentBinding
+import com.example.yandexautointernshipproblem.storing.RepoDatabase
+import com.example.yandexautointernshipproblem.storing.RepositoryRepresentation
 
 
 class VisitHistory : Fragment() {
