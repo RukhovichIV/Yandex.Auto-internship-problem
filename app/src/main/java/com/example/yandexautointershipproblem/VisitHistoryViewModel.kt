@@ -22,6 +22,9 @@ class VisitHistoryViewModel : ViewModel() {
                     dataSource.getAllRecords()
             }
             repositoriesList.value = result.await()
+            if(repositoriesList.value?.size == 0){
+                supportText.value = R.string.
+            }
         }
     }
 
