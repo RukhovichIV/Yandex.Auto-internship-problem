@@ -13,7 +13,6 @@ class VisitHistoryViewModel : ViewModel() {
 
     val repositoriesList: MutableLiveData<MutableList<RepositoryRepresentation>>
             by lazy { MutableLiveData<MutableList<RepositoryRepresentation>>() }
-    val supportText: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     fun recalculateViews() {
         runBlocking {
@@ -22,9 +21,6 @@ class VisitHistoryViewModel : ViewModel() {
                     dataSource.getAllRecords()
             }
             repositoriesList.value = result.await()
-            if(repositoriesList.value?.size == 0){
-                supportText.value = R.string.
-            }
         }
     }
 
@@ -32,7 +28,7 @@ class VisitHistoryViewModel : ViewModel() {
         runBlocking {
             val result = coroutineScope.async {
                 val repo = dataSource.checkForRecord(repository.author, repository.title)
-                if(repo != null){
+                if (repo != null) {
                     dataSource.deleteRecord(repo)
                 }
                 repository.id = dataSource.findMaxId() + 1

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Yandex.Auto internship problem</string>
     <string name="query_input_hint">Search for repository or author</string>
-    <string name="empty_history">Your visit history is empty for now. Visit some repo to make the app remember it.</string>
+    <string name="empty_repos">Nothing to show yet.</string>
     <string name="search">Search</string>
     <string name="history">History</string>
 </resources>

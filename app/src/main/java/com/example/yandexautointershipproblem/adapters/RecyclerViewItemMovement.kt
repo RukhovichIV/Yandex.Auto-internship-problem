@@ -15,18 +15,11 @@ import com.example.yandexautointershipproblem.R
 abstract class SwipeToDeleteCallback(context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.round_delete_forever_48)!!
+    private val deleteIcon =
+        ContextCompat.getDrawable(context, R.drawable.round_delete_forever_48)!!
     private val deleteBackground =
         ColorDrawable(ContextCompat.getColor(context, R.color.errorColor))
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
-
-//    override fun getMovementFlags(
-//        recyclerView: RecyclerView,
-//        viewHolder: RecyclerView.ViewHolder
-//    ): Int {
-//        if (viewHolder.adapterPosition == 10) return 0
-//        return super.getMovementFlags(recyclerView, viewHolder)
-//    }
 
     override fun onMove(
         recyclerView: RecyclerView,

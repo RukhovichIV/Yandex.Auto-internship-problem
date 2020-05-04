@@ -2,9 +2,6 @@ package com.example.yandexautointershipproblem
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.example.yandexautointershipproblem.adapters.RepositoryViewAdapter
 import com.example.yandexautointershipproblem.internet.searchRepositoriesAsync
 import com.example.yandexautointershipproblem.storing.RepoDatabaseDao
 import com.example.yandexautointershipproblem.storing.RepositoryRepresentation
@@ -36,7 +33,7 @@ class SearchRepositoryViewModel : ViewModel() {
     fun addNewItemToDatabase(repository: RepositoryRepresentation) {
         coroutineScope.launch {
             val repo = dataSource.checkForRecord(repository.author, repository.title)
-            if(repo != null){
+            if (repo != null) {
                 dataSource.deleteRecord(repo)
                 repository.starred = repo.starred
             }
@@ -67,7 +64,12 @@ class SearchRepositoryViewModel : ViewModel() {
                     supportText.value = "Nothing was found. Try another request"
                 } else {
                     repositoriesList.value =
-                        MutableList(StrictMath.min(100, arrayOfRepositories.length())) { index: Int ->
+                        MutableList(
+                            StrictMath.min(
+                                100,
+                                arrayOfRepositories.length()
+                            )
+                        ) { index: Int ->
                             val curElem = arrayOfRepositories.getJSONObject(index)
                             RepositoryRepresentation(
                                 curElem.getString("name"),

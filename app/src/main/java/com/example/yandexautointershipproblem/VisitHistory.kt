@@ -71,9 +71,6 @@ class VisitHistory : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-        model.supportText.observe(viewLifecycleOwner, Observer<String> {
-            binding.supportText.text = it
-        })
         model.dataSource = RepoDatabase.getInstance(requireNotNull(this.activity).application).dao
         model.recalculateViews()
 

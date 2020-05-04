@@ -1,7 +1,5 @@
 package com.example.yandexautointershipproblem.adapters
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
