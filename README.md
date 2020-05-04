@@ -1,7 +1,7 @@
 # Yandex.Auto internship problem
 
 
-This is Android Studio project, based on the task: https://github.com/justmnemonic/yandex-auto-task/
+This is an Android Studio project, based on the task: https://github.com/justmnemonic/yandex-auto-task/
 
 To find a repository enter its **title** / **owner's name** into the field and click the `search` button.
 
